@@ -1,0 +1,9 @@
+
+<div class="grid grid-cols-4 gap-5">
+    <!-- Mapeo del producto completo -->
+  @for(producto of productList(); track producto.id){
+    <app-product
+    [product]="producto"
+    (addToCart)="addToCart($event)" />
+  }
+</div>

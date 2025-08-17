@@ -1,0 +1,129 @@
+<nav>
+  <div class="w-full flex flex-wrap items-center justify-between mx-auto py-4">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=New+Rocker&display=swap" rel="stylesheet">
+    <style>
+    .gang-style-title{
+        font-family: "New Rocker", system-ui,cursive;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 3rem;
+      }
+      .gang-style-header{
+        font-family: "New Rocker", system-ui,cursive;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 1.5rem;
+      }
+      .gang-style-product{
+        font-family: "New Rocker", system-ui,cursive;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 1.5rem;
+    }
+    </style>
+    <div class="flex items-center space-x-8">
+      <a href="/" class="flex items-center ">
+        <img
+          src="../../../../../assets/images/logo.svg"
+          class="h-14 w-18 mr-3"
+          alt="DarkStyle"
+        />
+        <span class="self-center gang-style-title text-xl font-bold whitespace-nowrap">DarkStyle</span>
+      </a>
+      <ul class="flex space-x-6">
+        <li>
+          <a
+            routerLink="/"
+            routerLinkActive="underline"
+            [routerLinkActiveOptions]="{exact:true}"
+            class="block underline gang-style-header hover:underline"
+            aria-current="page"
+            >Home</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="/about"
+            routerLinkActive="underline"
+            class="block hover:underline gang-style-header"
+            >About</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="/services"
+            routerLinkActive="underline"
+            class="block hover:underline gang-style-header"
+            >Services</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="flex items-center">
+      <button class="px-2 border rounded relative" (click)="toogleSideMenu()">
+        <div class="absolute -top-3 -left-3 rounded h-5 w-5 bg-black text-white text-xs">
+          {{cart().length}}
+        </div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div
+  class="fixed border-l-4 top-0 right-0 bg-red z-40 w-72 h-screen p-4 overflow-y-auto transition-transform bg-gray-700"
+  [class.translate-x-full] = "hideSideMenu()"
+>
+  <div class="flex justify-between items-center">
+    <p class="text-xl gang-style-header" >My Cart</p>
+    <button (click)="toogleSideMenu()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    </button>
+  </div>
+  <div>
+    @for( product of cart(); track product.id){
+        <div class="group rounded-1g border">
+          <a href="#" class="w-full overflow-hidden rounded-t-1g bg-gray-200">
+            <img [src]="product.images[0]" [alt]="product.title" class="h-full w-full object-cover object-center group-hover:opacity-75">
+          </a>
+          <div class="flex flex-col space-y-2 p-4">
+            <h3 class="text-sm text-gray-700 gang-style-product">{{ product.title }}</h3>
+            <p class="text-lg font-medium text-gray-900 gang-style-product">{{product.price}}</p>
+            <button class="text-black bg-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 w-full hover:bg-gray-950 hover:text-white gang-style-product"
+              >Remove to cart</button>
+          </div>
+        </div>
+    }
+  </div>
+  <div class="mt-5">
+    <h3 class="text-sm text-black gang-style-header">Total: {{total()}}</h3>
+  </div>
+</div>
